@@ -24,9 +24,29 @@ export default function Login() {
 
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!form.email) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email harus diisi",
+      }));
+      return;
+    }
+
+    if (!form.password) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password harus diisi",
+      }));
+      return;
+    }
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -37,15 +57,16 @@ export default function Login() {
       if (error) {
         toast({
           title: `Sepertinya Ada Yang Salah`,
-          description: `${error as Error}`,
+          description: `Email Atau Password Tidak Sesuai Dengan Data`,
           variant: "destructive",
         });
+      } else {
+        toast({
+          title: "Selamat Datang Kembali",
+          description: `${data.session?.user.email}`,
+          variant: "success",
+        });
       }
-      toast({
-        title: "Selamat Datang Kembali",
-        description: `${data.session?.user.email}`,
-        variant: "success",
-      });
       console.log(data);
     } catch (error) {
       toast({
@@ -63,6 +84,10 @@ export default function Login() {
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "", // Reset error when input changes
     }));
   };
 
@@ -89,6 +114,9 @@ export default function Login() {
                 value={form.email}
                 onChange={handleChange}
               />
+              {errors.email && (
+                <span className="text-red-500">{errors.email}</span>
+              )}
               <CardDescription className="text-violet-500">
                 Password:
               </CardDescription>
@@ -99,6 +127,9 @@ export default function Login() {
                 value={form.password}
                 onChange={handleChange}
               />
+              {errors.password && (
+                <span className="text-red-500">{errors.password}</span>
+              )}
             </CardContent>
             <Divider className="mb-4" />
             <CardFooter className="grid gap-2">

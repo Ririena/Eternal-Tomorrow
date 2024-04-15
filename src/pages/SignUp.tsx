@@ -23,12 +23,21 @@ export default function SignUp() {
     password2: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    password2: "",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setTambahUsers((prev) => ({
       ...prev,
       [name]: value,
+    }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "", // Reset error when input changes
     }));
   };
 
@@ -39,12 +48,39 @@ export default function SignUp() {
       return;
     }
 
-    setIsSubmitting(true);
-
-    if (tambahUsers.password !== tambahUsers.password2) {
-      setIsSubmitting(false);
+    if (!tambahUsers.email) {
+      setErrors((prev) => ({
+        ...prev,
+        email: "Email harus diisi",
+      }));
       return;
     }
+
+    if (!tambahUsers.password) {
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password harus diisi",
+      }));
+      return;
+    }
+
+    if (!tambahUsers.password2) {
+      setErrors((prev) => ({
+        ...prev,
+        password2: "Konfirmasi password harus diisi",
+      }));
+      return;
+    }
+
+    if (tambahUsers.password !== tambahUsers.password2) {
+      setErrors((prev) => ({
+        ...prev,
+        password2: "Password konfirmasi tidak cocok",
+      }));
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -75,6 +111,7 @@ export default function SignUp() {
       setIsSubmitting(false);
     }
   };
+
   return (
     <>
       <div className="mx-auto container font-montserrat">
@@ -99,6 +136,9 @@ export default function SignUp() {
                   value={tambahUsers.email}
                   onChange={handleChange}
                 />
+                {errors.email && (
+                  <span className="text-red-500">{errors.email}</span>
+                )}
                 <CardDescription className="text-violet-500">
                   Password:
                 </CardDescription>
@@ -109,6 +149,9 @@ export default function SignUp() {
                   value={tambahUsers.password}
                   onChange={handleChange}
                 />
+                {errors.password && (
+                  <span className="text-red-500">{errors.password}</span>
+                )}
                 <CardDescription className="text-violet-500">
                   Confirm Password:
                 </CardDescription>
@@ -119,6 +162,9 @@ export default function SignUp() {
                   value={tambahUsers.password2}
                   onChange={handleChange}
                 />
+                {errors.password2 && (
+                  <span className="text-red-500">{errors.password2}</span>
+                )}
               </CardContent>
               <Divider className="mb-4" />
               <CardFooter className="grid gap-2">

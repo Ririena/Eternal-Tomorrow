@@ -3,6 +3,8 @@ import {
   AiFillSetting,
   AiOutlineLogout,
 } from "react-icons/ai";
+
+import { useEffect, useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -18,7 +20,29 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { getUserByEmail } from "@/libs/UserLibs";
 export default function Header() {
+
+  const [userData, setUserData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [userEmail, setUserEmail] = useState(null)
+ 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = await getUserByEmail(email);
+        setUserEmail(user.email);
+
+        const userDataFromTable = await getUserFromTable(user.email);
+        setUserData(userDataFromTable);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
   return (
     <>
       <Navbar
@@ -64,7 +88,7 @@ export default function Header() {
                 <PopoverContent className="w-52  text-sm">
                   <div className="font-semibold hover:bg-indigo-50 rounded-sm p-1 cursor-pointer">
                     <h1>Signed In As</h1>
-                    <p>Kawaranai@gmail.com</p>
+                    {userData ? userData.email : "Loading..."}
                   </div>
                   <Divider />
                   <div className="grid gap-1 mt-2">
