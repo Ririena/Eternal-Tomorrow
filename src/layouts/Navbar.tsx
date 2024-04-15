@@ -2,15 +2,12 @@ import {
   AiFillMail,
   AiFillSetting,
   AiOutlineLogout,
-  AiOutlineUser,
 } from "react-icons/ai";
-import React from "react";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Divider,
 } from "@nextui-org/react";
 import { Avatar } from "@/components/ui/avatar";
@@ -21,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
 export default function Header() {
   return (
     <>
