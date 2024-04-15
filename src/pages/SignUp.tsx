@@ -10,14 +10,12 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/react";
-import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/utils/supabase";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
-type CardProps = React.ComponentProps<typeof Card>;
-export default function SignUp({ className, ...props }: CardProps) {
+export default function SignUp() {
   const { toast } = useToast();
   const [tambahUsers, setTambahUsers] = useState({
     email: "",
@@ -81,9 +79,9 @@ export default function SignUp({ className, ...props }: CardProps) {
     <>
       <div className="mx-auto container font-montserrat">
         <div className="flex justify-center mt-12">
-          <form onSubmit={handleSubmit}>
-            <Card className={cn("w-[500px]", className)} {...props}>
-              <CardHeader className="">
+          <form onSubmit={handleSubmit} className="w-full sm:max-w-md">
+            <Card className="w-full sm:max-w-[500px]">
+              <CardHeader>
                 <CardTitle className="text-violet-400">
                   <span className="text-violet-500">Sign</span>Up
                 </CardTitle>
@@ -123,18 +121,17 @@ export default function SignUp({ className, ...props }: CardProps) {
                 />
               </CardContent>
               <Divider className="mb-4" />
-              <CardFooter className="grid">
+              <CardFooter className="grid gap-2">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Button type="submit" className="w-full">
-                    {" "}
                     {isSubmitting ? "Submitting..." : "Signup"}
                   </Button>
                 </motion.div>
-                <div className=" mt-2">
+                <div className="mt-2">
                   <h1 className="text-md font-normal">
                     <div className="flex justify-between mx-2">
                       <h1>Already Have An Account?</h1>
@@ -145,15 +142,15 @@ export default function SignUp({ className, ...props }: CardProps) {
                   </h1>
                 </div>
                 <div className="flex justify-center items-center my-4">
-                  <Divider className="w-48" />
+                  <Divider className="w-1/4 sm:w-48" />
                   <h1 className="text-lg text-violet-400 mx-2">Or</h1>
-                  <Divider className="w-48" />
+                  <Divider className="w-1/4 sm:w-48" />
                 </div>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className=" grid"
+                  className="grid"
                 >
                   <Button variant="outline" className="shadow-md">
                     <span className="flex items-center">

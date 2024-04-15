@@ -10,20 +10,19 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/react";
-import { cn } from "@/lib/utils";
+
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "../utils/supabase.js";
 import { useToast } from "@/components/ui/use-toast.js";
-type CardProps = React.ComponentProps<typeof Card>;
 
-export default function Login({ className, ...props }: CardProps) {
+export default function Login() {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
-  const {toast} = useToast()
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -40,20 +39,20 @@ export default function Login({ className, ...props }: CardProps) {
           title: `Sepertinya Ada Yang Salah`,
           description: `${error as Error}`,
           variant: "destructive",
-        })
+        });
       }
-toast({
-  title: "Selamat Datang Kembali",
-  description: `${data.session?.user.email}`,
-  variant: "success"
-})
+      toast({
+        title: "Selamat Datang Kembali",
+        description: `${data.session?.user.email}`,
+        variant: "success",
+      });
       console.log(data);
     } catch (error) {
       toast({
         title: "Sepertinya Ada Yang Error Di Sisi Server",
         description: `${error as Error}`,
         variant: "destructive",
-      })
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -70,8 +69,8 @@ toast({
   return (
     <div className="mx-auto container font-montserrat">
       <div className="flex justify-center mt-12">
-        <form onSubmit={handleSubmit}>
-          <Card className={cn("", className)} {...props}>
+        <form onSubmit={handleSubmit} className="w-full sm:max-w-md">
+          <Card>
             <CardHeader>
               <CardTitle className="text-violet-400">
                 <span className="text-violet-500">LOG</span>IN
@@ -80,7 +79,9 @@ toast({
               <Divider />
             </CardHeader>
             <CardContent className="grid gap-2">
-              <CardDescription className="text-violet-500">Email:</CardDescription>
+              <CardDescription className="text-violet-500">
+                Email:
+              </CardDescription>
               <Input
                 type="email"
                 placeholder="Email"
@@ -88,7 +89,9 @@ toast({
                 value={form.email}
                 onChange={handleChange}
               />
-              <CardDescription className="text-violet-500">Password:</CardDescription>
+              <CardDescription className="text-violet-500">
+                Password:
+              </CardDescription>
               <Input
                 type="password"
                 placeholder="Password"
@@ -98,27 +101,40 @@ toast({
               />
             </CardContent>
             <Divider className="mb-4" />
-            <CardFooter className="grid">
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.1 }} whileTap={{ scale: 0.95 }}>
+            <CardFooter className="grid gap-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Button className="w-full" disabled={isSubmitting}>
                   Sign In
                 </Button>
               </motion.div>
-              <div className=" mt-2">
-                <h1 className="text-md font-normal">
-                  <div className="flex justify-between mx-2">
-                    <h1>Didn't Have An Account?</h1>
-                    <p className="text-violet-600 hover:text-indigo-400 cursor-pointer">Sign Up</p>
-                  </div>
-                </h1>
+              <div className="flex justify-between">
+                <p className="text-md font-normal">Didn't Have An Account?</p>
+                <p className="text-violet-600 hover:text-indigo-400 cursor-pointer">
+                  Sign Up
+                </p>
               </div>
+              <Divider />
               <div className="flex justify-center items-center my-4">
-                <Divider className="w-48" />
+                <Divider className="w-1/4 sm:w-48" />
                 <h1 className="text-lg text-violet-400 mx-2">Or</h1>
-                <Divider className="w-48" />
+                <Divider className="w-1/4 sm:w-48" />
               </div>
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.1 }} whileTap={{ scale: 0.95 }} className=" grid">
-                <Button variant="outline" className="shadow-md" type="submit" disabled={isSubmitting}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="grid"
+              >
+                <Button
+                  variant="outline"
+                  className="shadow-md w-full"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
                   <span className="flex items-center">
                     <Image src="/google.png" width={30} />
                     <span className="ml-2">Continue with Google</span>
