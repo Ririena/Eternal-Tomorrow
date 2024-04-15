@@ -5,6 +5,7 @@ import HomeLayout from "./layouts/HomeLayouts";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Me from "./pages/Me";
+import Url from "./pages/Url";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -23,6 +24,9 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="me" element={<Me />} />
+        </Route>
+        <Route path="message" element={<HomeWithLayout />}>
+          <Route path=":urlId" element={<Url />} />
         </Route>
       </Routes>
     </>
