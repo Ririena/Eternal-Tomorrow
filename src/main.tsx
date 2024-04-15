@@ -4,11 +4,14 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "./components/ui/toaster.tsx";
+import { ChakraProvider } from "@chakra-ui/react";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
-      <Toaster/>
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
+      <Toaster />
     </BrowserRouter>
   </React.StrictMode>
 );
