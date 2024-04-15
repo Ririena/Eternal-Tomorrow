@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, } from "@/components/ui/card";
 import { Image } from "@nextui-org/react";
 import { Divider } from "@nextui-org/react";
 import { cn } from "@/lib/utils";
