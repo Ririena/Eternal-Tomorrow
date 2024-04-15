@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 let yourName: string = "Zayshi";
 type CardProps = React.ComponentProps<typeof Card>;
-
+console.log(yourName)
 export default function MainMeCard({ className, ...props }: CardProps) {
   return (
     <>
