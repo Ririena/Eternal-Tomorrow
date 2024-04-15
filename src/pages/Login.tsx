@@ -15,12 +15,17 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "../utils/supabase.js";
 import { useToast } from "@/components/ui/use-toast.js";
-
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+function signUp() {
+  navigate("/signup")
+}
 
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,6 +71,8 @@ export default function Login() {
           description: `${data.session?.user.email}`,
           variant: "success",
         });
+
+        navigate("/me")
       }
       console.log(data);
     } catch (error) {
@@ -144,7 +151,7 @@ export default function Login() {
               </motion.div>
               <div className="flex justify-between">
                 <p className="text-md font-normal">Didn't Have An Account?</p>
-                <p className="text-violet-600 hover:text-indigo-400 cursor-pointer">
+                <p className="text-violet-600 hover:text-indigo-400 cursor-pointer" onClick={signUp}>
                   Sign Up
                 </p>
               </div>

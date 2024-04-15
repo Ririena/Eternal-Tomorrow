@@ -1,22 +1,22 @@
 import { supabase } from "../utils/supabase";
 
 // Ambil Data User Berdasarkan Email
-export const getUserByEmail = async (email: any) => {
+export const getUserByEmail = async () => {
   try {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    console.log(email);
-
+   
     return user;
   } catch (error) {
+    console.error("Error fetching user:", error as Error);
     throw error;
   }
 };
 
 // Ambil Data User Berdasarkan Table Yakni Email Juga
-export const getUserFromTable = async (email: any) => {
+export const getUserFromTable = async (email) => {
   try {
     const { data, error } = await supabase
       .from("user")
@@ -29,9 +29,11 @@ export const getUserFromTable = async (email: any) => {
     }
 
     if (data) {
-      const { data: avatarData } = await supabase.storage
+      const { data: avatarData,} = await supabase.storage
         .from("avatar")
         .getPublicUrl(data.avatar);
+
+     
 
       if (avatarData) {
         data.avatar = avatarData.publicUrl;
@@ -39,6 +41,7 @@ export const getUserFromTable = async (email: any) => {
     }
     return data;
   } catch (error) {
+    console.error("Error fetching user from table:", error as Error);
     throw error;
   }
 };

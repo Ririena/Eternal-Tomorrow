@@ -14,8 +14,13 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/utils/supabase";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-
+import { useNavigate } from "react-router-dom";
 export default function SignUp() {
+  const navigate = useNavigate();
+
+  function handleLogin() {
+    navigate("/login");
+  }
   const { toast } = useToast();
   const [tambahUsers, setTambahUsers] = useState({
     email: "",
@@ -100,6 +105,8 @@ export default function SignUp() {
           description: "Dipindahkan ke Halaman Login",
           variant: "success",
         });
+
+        navigate("/login");
       }
     } catch (error) {
       toast({
@@ -181,7 +188,10 @@ export default function SignUp() {
                   <h1 className="text-md font-normal">
                     <div className="flex justify-between mx-2">
                       <h1>Already Have An Account?</h1>
-                      <p className="text-violet-600 hover:text-indigo-400 cursor-pointer">
+                      <p
+                        className="text-violet-600 hover:text-indigo-400 cursor-pointer"
+                        onClick={handleLogin}
+                      >
                         Sign In
                       </p>
                     </div>

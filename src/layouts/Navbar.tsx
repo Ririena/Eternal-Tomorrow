@@ -1,8 +1,4 @@
-import {
-  AiFillMail,
-  AiFillSetting,
-  AiOutlineLogout,
-} from "react-icons/ai";
+import { AiFillMail, AiFillProfile, AiFillSetting, AiOutlineLogout } from "react-icons/ai";
 
 import { useEffect, useState } from "react";
 import {
@@ -20,18 +16,38 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getUserByEmail } from "@/libs/UserLibs";
+import { getUserByEmail, getUserFromTable } from "@/libs/UserLibs";
+import { supabase } from "../utils/supabase";
+import { useNavigate } from "react-router-dom";
 export default function Header() {
+  const navigate = useNavigate()
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
 
-  const [userData, setUserData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [userEmail, setUserEmail] = useState(null)
- 
+  async function logOut() {
+    try {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        console.error(error as Error);
+      }
+      navigate("/")
+    } catch (error) {
+      console.error(error as Error);
+    }
+  }
+
+  function handleLogin() {
+    navigate("/login")
+  }
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const user = await getUserByEmail(email);
-        setUserEmail(user.email);
+        const user = await getUserByEmail();
+        setUserEmail(user?.email);
+        console.log(userEmail);
 
         const userDataFromTable = await getUserFromTable(user.email);
         setUserData(userDataFromTable);
@@ -43,6 +59,10 @@ export default function Header() {
 
     fetchUserData();
   }, []);
+
+  if (loading) {
+    return <h1>Loading Bang</h1>;
+  }
   return (
     <>
       <Navbar
@@ -100,7 +120,11 @@ export default function Header() {
                       <AiFillMail className="mr-1" />
                       <span>My Mail</span>
                     </Button>
-                    <Button variant="outline" className="flex items-center">
+                    <Button onClick={handleLogin} variant="default" className="flex items-center">
+                      <AiFillProfile className="mr-1"/>
+                      <span>My Session</span>
+                    </Button>
+                    <Button onClick={logOut} variant="destructive" className="flex items-center">
                       <AiOutlineLogout className="mr-1" />
                       <span>Logout</span>
                     </Button>

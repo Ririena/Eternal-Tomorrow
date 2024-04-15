@@ -3,7 +3,36 @@ import { Card, CardContent, CardFooter, CardHeader } from "../card";
 import { cn } from "@/lib/utils";
 import { Button } from "../button";
 type CardProps = React.ComponentProps<typeof Card>;
+import { useState, useEffect } from "react";
+import { getUserByEmail, getUserFromTable } from "@/libs/UserLibs";
 export default function MainMeSecCard({ className, ...props }: CardProps) {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
+  const [existingUserName, setExistingUserName] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = await getUserByEmail();
+        setUserEmail(user?.email);
+        console.log(userEmail);
+
+        const userDataFromTable = await getUserFromTable(user.email);
+        setUserData(userDataFromTable);
+        setExistingUserName(userData.nama_user);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
   return (
     <>
       <section className="pb-28 font-montserrat">
@@ -23,7 +52,7 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                 </CardContent>
                 <CardFooter>
                   <div className="mx-auto">
-                    <Snippet size="sm">https://l4tomo.vercel.app</Snippet>
+                    <Snippet size="sm">{`https://l4tomo.vercel.app/message/${existingUserName}`}</Snippet>
                   </div>
                 </CardFooter>
               </Card>
@@ -37,7 +66,15 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                   </CardHeader>
                   <CardContent>
                     <div className="items-center flex justify-center">
-                      <Button>Share On WhatsApp</Button>
+                      <a
+                        href={`https://wa.me/?text=${encodeURIComponent(
+                          `https://l4tomo.vercel.app/message/${existingUserName}`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button>Share On WhatsApp</Button>
+                      </a>
                     </div>
                   </CardContent>
                 </Card>
