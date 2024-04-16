@@ -5,6 +5,7 @@ import {
   AiOutlineMail,
   AiOutlineUser,
 } from "react-icons/ai";
+import { MdUpdate } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "@nextui-org/react";
 import {
@@ -52,6 +53,10 @@ export default function Header() {
   const [selectedAvatarFile, setSelectedAvatarFile] = useState(null);
   function handleHome() {
     navigate("/");
+  }
+
+  function handleVersion() {
+    navigate("/version");
   }
 
   function handleMail() {
@@ -169,7 +174,6 @@ export default function Header() {
         className="font-montserrat shadow-md bg-gradient-to-r from-violet-500 to-violet-700 text-slate-100"
       >
         <NavbarBrand>
-
           <p className="font-bold text-inherit">L4Tomorrow</p>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-1" justify="center">
@@ -197,6 +201,15 @@ export default function Header() {
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
             >
               Public Message
+            </Button>
+          </NavbarItem>
+          <NavbarItem>
+            <Button
+              className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
+              onClick={handleVersion}
+              variant="link"
+            >
+              Version List
             </Button>
           </NavbarItem>
         </NavbarContent>
@@ -241,6 +254,10 @@ export default function Header() {
                     <span onClick={logOut} className="cursor-pointer ">
                       Log Out
                     </span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                    <MdUpdate size="1em" className="mr-4" />
+                    <span>Version List</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
