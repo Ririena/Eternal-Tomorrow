@@ -6,6 +6,9 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Me from "./pages/Me";
 import Url from "./pages/Url";
+import Mail from "./pages/Mail";
+import Verified from "./pages/Verified";
+import PublicMessage from "./pages/PublicMesssage";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -21,13 +24,19 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeWithLayout />}>
           <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
+          <Route path="public" element={<PublicMessage />} />
+
+         
           <Route path="me" element={<Me />} />
+          <Route path="mail" element={<Mail />} />
         </Route>
+        <Route path="verify" element={<Verified />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
+
         <Route path="message" element={<HomeWithLayout />}>
-          <Route path=":urlId" element={<Url />} />
-        </Route>
+            <Route path=":urlId" element={<Url />} />
+          </Route>
       </Routes>
     </>
   );

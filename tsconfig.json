@@ -6,13 +6,13 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
     "strictNullChecks": false,
 
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -20,13 +20,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    
+    "allowUnusedLabels": true,
+
     "jsx": "react-jsx",
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],

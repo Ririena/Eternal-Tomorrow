@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   AiOutlineLogin,
   AiOutlineLogout,
@@ -5,6 +6,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "@nextui-org/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +49,14 @@ export default function Header() {
   const [userEmail, setUserEmail] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [selectedAvatarFile, setSelectedAvatarFile] = useState(null);
+  function handleHome() {
+    navigate("/");
+  }
+
+  function handleMail() {
+    navigate("/mail");
+  }
   async function logOut() {
     try {
       const { error } = await supabase.auth.signOut();
@@ -86,35 +96,36 @@ export default function Header() {
     return <h1>Loading Bang</h1>;
   }
 
-  const handleAvatarChange = async (e) => {
+  const handleAvatarChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      try {
+    setSelectedAvatarFile(file);
+  };
+
+  console.log(avatarUrl);
+  const handleSubmit = async () => {
+    try {
+      if (selectedAvatarFile) {
         const avatarFileName = uuidv4();
-        const { data, error } = (await supabase.storage
+
+        await supabase.storage
           .from("avatar")
-          .upload(avatarFileName, file, { cacheControl: "3600" })) as {
-          data: { publicURL: string };
-          error: Error;
-        };
-        if (error) {
-          throw error;
-        }
-        const avatarUrl = data.publicURL;
-        setAvatarUrl(avatarUrl);
+          .upload(avatarFileName, selectedAvatarFile, { cacheControl: "3600" });
+
+        const avatarUrl = await supabase.storage
+          .from("avatar")
+          .getPublicUrl(avatarFileName);
         await supabase
           .from("user")
           .update({ avatar: avatarFileName })
           .eq("email", userEmail);
-      } catch (error) {
-        console.error("Error updating avatar:", error as Error);
+        setAvatarUrl(avatarUrl);
       }
-    }
-  };
+      console.log("Avatar saved successfully!");
 
-  console.log(avatarUrl)
-  const handleSubmit = async () => {
-    console.log("Changes saved!");
+      onClose();
+    } catch (error) {
+      console.error("Error saving avatar:", error);
+    }
   };
 
   return (
@@ -146,8 +157,9 @@ export default function Header() {
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button className="w-full" variant="ninja" onClick={onClose}>
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -157,23 +169,26 @@ export default function Header() {
         className="font-montserrat shadow-md bg-gradient-to-r from-violet-500 to-violet-700 text-slate-100"
       >
         <NavbarBrand>
+
           <p className="font-bold text-inherit">L4Tomorrow</p>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-1" justify="center">
           <NavbarItem>
             <Button
               variant="link"
+              onClick={handleHome}
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
             >
-              Features
+              Homes
             </Button>
           </NavbarItem>
           <NavbarItem isActive>
             <Button
+              onClick={handleMail}
               variant="link"
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
             >
-              Customers
+              My Mail
             </Button>
           </NavbarItem>
           <NavbarItem>
@@ -181,7 +196,7 @@ export default function Header() {
               variant="link"
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
             >
-              Integrations
+              Public Message
             </Button>
           </NavbarItem>
         </NavbarContent>
@@ -196,7 +211,7 @@ export default function Header() {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white border border-gray-200 rounded-md w-52 shadow-lg">
-                <DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
                   <div className="font-semibold hover:bg-indigo-50 rounded-sm p-1 cursor-pointer">
                     <h1>Signed In As</h1>
                     {userData ? userData.email : "Loading..."}
@@ -205,22 +220,25 @@ export default function Header() {
                 <Divider />
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup className="flex-row">
-                  <DropdownMenuItem onClick={onOpen}>
+                  <DropdownMenuItem className="cursor-pointer" onClick={onOpen}>
                     <AiOutlineUser size="1em" className="mr-4" />
 
                     <span>Profile</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleMail}
+                  >
                     <AiOutlineMail size="1em" className="mr-4" />
                     <span>My Mail</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="">
+                  <DropdownMenuItem className="cursor-pointer">
                     <AiOutlineLogin size="1em" className="mr-4" />
                     <span onClick={handleLogin}>Log In</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="">
+                  <DropdownMenuItem className="cursor-pointer">
                     <AiOutlineLogout size="1em" className="mr-4" />
-                    <span onClick={logOut} className="">
+                    <span onClick={logOut} className="cursor-pointer ">
                       Log Out
                     </span>
                   </DropdownMenuItem>

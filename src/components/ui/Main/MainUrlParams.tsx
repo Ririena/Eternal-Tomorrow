@@ -188,7 +188,7 @@ export default function MainUserParams() {
           </Tabs>
 
           <div className="flex justify-center items-center mt-4">
-            <Button className="max-w-lg w-full p-6" onClick={handleSave}>Submit</Button>
+            <Button className="max-w-lg w-full p-6" variant="borderwhite" onClick={handleSave}>Submit</Button>
           </div>
         </div>
       </main>
