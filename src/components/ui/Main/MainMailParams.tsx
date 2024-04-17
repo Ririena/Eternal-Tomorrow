@@ -36,7 +36,7 @@ export default function MainMailParams() {
         const userDataFromTable = await getUserFromTable(user?.email);
         setUserData(userDataFromTable);
       } catch (error) {
-        console.error(error.message);
+        console.error(error as Error);
       } finally {
         setLoading(false);
       }
@@ -65,16 +65,13 @@ export default function MainMailParams() {
           .from("gambar/picture")
           .getPublicUrl(data.gambar);
 
-        if (res.error) {
-          console.error(res.error.message);
-        } else {
-          setImage(res.data.publicUrl);
-        }
+        setImage(res.data.publicUrl);
+
         if (data?.video) {
           setVideoUrl(data.video);
         }
       } catch (error) {
-        console.error("Error fetching mail data:", error.message);
+        console.error("Error fetching mail data:", error as Error);
       } finally {
         setLoading(false);
       }
@@ -97,14 +94,11 @@ export default function MainMailParams() {
     <>
       <div></div>
       {loading && (
-        <div className="flex justify-center items-center h-screen bg-white bg-opacity-30 ">
-          <Spinner
-            label="Loading..."
-            color="secondary"
-            size="lg"
-            labelColor="secondary"
-          />
-        </div>
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+        <Spinner className="" size="lg">
+          <p className="text-black text-md">Loading</p>
+        </Spinner>
+      </div>
       )}
       {!loading && !userEmail && (
         <div className="flex justify-center items-center h-screen bg-white bg-opacity-30">
@@ -126,7 +120,7 @@ export default function MainMailParams() {
                   transition={{ duration: 0.5 }}
                 >
                   <motion.div
-                    className={`left-[202px] xs:left-[170px] sm:left-[202px] absolute top-0  lg:left-[271px] xl:left-[280px] ${
+                    className={`left-[202px] xs:left-[190px] sm:left-[202px] absolute top-0  lg:left-[271px] xl:left-[280px] ${
                       isWaxLoaded ? "block z-10" : "hidden"
                     }`}
                     whileHover={{ scale: 1.1 }}
@@ -134,7 +128,7 @@ export default function MainMailParams() {
                     onClick={handleShowDetail}
                   >
                     <Image
-                    className="cursor-pointer"
+                      className="cursor-pointer"
                       onLoad={() => setIsWaxLoaded(true)}
                       src="/WAX.png"
                       height={45}
@@ -186,8 +180,7 @@ export default function MainMailParams() {
                     transition={{ duration: 0.5 }}
                   >
                     <Card
-                      bordered
-                      shadow
+                      
                       className="max-w-2xl mx-auto p-8 rounded-lg bg-opacity-75"
                     >
                       <div className="flex justify-between items-center mb-4">
@@ -225,7 +218,7 @@ export default function MainMailParams() {
                   <div className="mt-4">
                     {!loading && userEmail && mailData && showDetail && (
                       <>
-                        <Card bordered shadow>
+                        <Card >
                           <div className="mx-auto">
                             <Image
                               src={image}
@@ -244,11 +237,13 @@ export default function MainMailParams() {
 
                         <div className="mt-4">
                           <Card>
-                            <ReactPlayer
-                              url={videoUrl}
-                              controls={true}
-                              className=""
-                            />
+                            {videoUrl && typeof videoUrl === "string" && (
+                              <ReactPlayer
+                                url={videoUrl}
+                                controls={true}
+                                className=""
+                              />
+                            )}
                           </Card>
                         </div>
                       </>

@@ -1,14 +1,15 @@
 import { supabase } from "../../../utils/supabase";
 import { useState, useEffect } from "react";
-
 import { motion } from "framer-motion";
-import {Link, Image, Divider } from "@nextui-org/react";
+import { Link, Image, Divider } from "@nextui-org/react";
 import { format } from "date-fns";
-import {Card, CardHeader, CardContent as CardBody} from "../../ui/card"
+import { Card, CardHeader, CardContent as CardBody } from "../../ui/card";
+import { Spinner } from "@nextui-org/react";
 export default function MailCard() {
   const [userId, setUserId] = useState(null);
   const [receiverData, setReceiverData] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
@@ -44,9 +45,10 @@ export default function MailCard() {
         }
 
         setReceiverData(receiver);
-        console.log(receiver);
+        setLoading(false); // Setelah data diterima, set loading ke false
       } catch (error) {
-        console.error("Error fetching user or messages:", error as Error);
+        console.error("Error fetching user or messages:", error);
+        setLoading(false); // Pastikan untuk menangani kasus error dengan menyetel loading ke false
       }
     }
 
@@ -58,7 +60,7 @@ export default function MailCard() {
     return format(date, "MMMM, dd, yyyy");
   };
 
-  const handleSelectMessagge = (message) => {
+  const handleSelectMessage = (message) => {
     setSelectedMessage(message);
   };
 
@@ -66,9 +68,15 @@ export default function MailCard() {
     <>
       <main>
         <section>
-          {receiverData && (
-            <div className=" flex justify-center items-center ">
-              <ul className=" grid grid-cols-1 md:grid-cols-2 lg:xl:grid-cols-3  gap-8 m-4">
+          {loading ? (
+            <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+              <Spinner className="" size="lg">
+                <p className="text-black text-md">Loading</p>
+              </Spinner>
+            </div>
+          ) : receiverData ? (
+            <div className="flex justify-center items-center">
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 m-4">
                 {receiverData.map((message) => (
                   <li key={message.id} className="flex justify-center">
                     <motion.section
@@ -85,7 +93,11 @@ export default function MailCard() {
                       <Card className="border-2  border-primary-600">
                         <CardHeader>
                           <a href={`/me/mail/${message.id}`}>
-                              <Image src="/LOGO.png" className="object-contain" width={400} />
+                            <Image
+                              src="/LOGO.png"
+                              className="object-contain"
+                              width={400}
+                            />
                           </a>
                         </CardHeader>
                         <Divider />
@@ -102,6 +114,8 @@ export default function MailCard() {
                 ))}
               </ul>
             </div>
+          ) : (
+            <div>Data not found</div>
           )}
         </section>
       </main>
