@@ -10,6 +10,7 @@ import Mail from "./pages/Mail";
 import Verified from "./pages/Verified";
 import PublicMessage from "./pages/PublicMesssage";
 import Version from "./pages/Version";
+import MailId from "./pages/MailId";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -28,8 +29,6 @@ function App() {
           <Route path="public" element={<PublicMessage />} />
 
           <Route path="version" element={<Version />} />
-          <Route path="me" element={<Me />} />
-          <Route path="mail" element={<Mail />} />
         </Route>
         <Route path="verify" element={<Verified />} />
         <Route path="login" element={<Login />} />
@@ -37,6 +36,14 @@ function App() {
 
         <Route path="message" element={<HomeWithLayout />}>
           <Route path=":urlId" element={<Url />} />
+        </Route>
+
+        <Route path="me" element={<HomeWithLayout />}>
+          <Route index element={<Me />} />
+          <Route path="mail">
+            <Route index element={<Mail />} />
+            <Route path=":mailId" element={<MailId />} />
+          </Route>
         </Route>
       </Routes>
     </>

@@ -60,7 +60,7 @@ export default function Header() {
   }
 
   function handleMail() {
-    navigate("/mail");
+    navigate("/me/mail");
   }
   async function logOut() {
     try {
@@ -170,8 +170,8 @@ export default function Header() {
       </Modal>
 
       <Navbar
-        position="sticky"
-        className="font-montserrat shadow-md bg-gradient-to-r from-violet-500 to-violet-700 text-slate-100"
+        position="static"
+        className=" z-50 font-montserrat shadow-md bg-gradient-to-r from-violet-500 to-violet-700 text-slate-100"
       >
         <NavbarBrand>
           <p className="font-bold text-inherit">L4Tomorrow</p>
