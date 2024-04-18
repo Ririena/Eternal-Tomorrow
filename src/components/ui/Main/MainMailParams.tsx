@@ -113,14 +113,14 @@ export default function MainMailParams() {
               {!showDetail ? (
                 <motion.div
                   key="mailPreview"
-                  className="mt-16 shadow-xl max-w-md lg:max-w-[600px] xl:max-w-[600px] w-full mx-auto relative overflow-visible "
+                  className="mt-16 shadow-xl max-w-sm lg:max-w-[600px] xl:max-w-[600px] w-full mx-auto relative overflow-visible "
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 50 }}
                   transition={{ duration: 0.5 }}
                 >
                   <motion.div
-                    className={`left-[202px] xs:left-[190px] sm:left-[202px] absolute top-0  lg:left-[271px] xl:left-[280px] ${
+                    className={`left-[202px] xs:left-[172px] sm:left-[202px] absolute top-0  lg:left-[271px] xl:left-[280px] ${
                       isWaxLoaded ? "block z-10" : "hidden"
                     }`}
                     whileHover={{ scale: 1.1 }}
