@@ -12,7 +12,7 @@ export default function FAB() {
   const navigate = useNavigate();
 
   function handleMail() {
-    navigate("/mail");
+    navigate("/me/mail");
   }
 
   function handleMe() {
@@ -26,7 +26,7 @@ export default function FAB() {
     <div className="fixed bottom-4 right-4 z-50">
       <Popover>
         <PopoverTrigger>
-          <div className="rounded-full size-[60px] bg-violet-500 text-white flex justify-center items-center cursor-pointer">
+          <div className="rounded-full size-[40px] xs:sm:size-[60px] bg-violet-500 text-white flex justify-center items-center cursor-pointer">
             +
           </div>
         </PopoverTrigger>

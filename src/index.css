@@ -71,3 +71,14 @@
       scrollbar-width: none;  /* Firefox */
 }
 }
+
+.pagination-sidebar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 150px; /* Sesuaikan dengan lebar yang diinginkan */
+  background-color: #fff; /* Warna latar belakang */
+  padding: 20px; /* Sesuaikan dengan padding yang diinginkan */
+  border-left: 1px solid #ccc; /* Garis sisi untuk memisahkan dengan konten */
+}

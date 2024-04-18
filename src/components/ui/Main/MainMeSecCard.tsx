@@ -5,6 +5,7 @@ import { Button } from "../button";
 type CardProps = React.ComponentProps<typeof Card>;
 import { useState, useEffect } from "react";
 import { getUserByEmail, getUserFromTable } from "@/libs/UserLibs";
+import { supabase } from "@/utils/supabase";
 export default function MainMeSecCard({ className, ...props }: CardProps) {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,19 +15,37 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const user = await getUserByEmail();
-        setUserEmail(user?.email);
-        console.log(userEmail);
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+        if (error) {
+          console.error(error.message);
+        } else {
+          setUserEmail(user.email);
 
-        const userDataFromTable = await getUserFromTable(user.email);
-        setUserData(userDataFromTable);
-        setExistingUserName(userData.nama_user);
-        setLoading(false);
+          // Ambil data user dengan email yang sama dari database
+          const { data, error } = await supabase
+            .from("user")
+            .select("nama_user")
+            .eq("email", user.email)
+            .single();
+
+          if (error) {
+            console.error(error.message);
+          } else {
+            if (data) {
+              // Jika data ditemukan, simpan nama user yang sudah ada
+              setExistingUserName(data.nama_user);
+            }
+          }
+        }
       } catch (error) {
+        console.error(error as Error);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchUserData();
   }, []);
 
@@ -47,7 +66,7 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="mx-auto text-md text-center">
-                    <section>https://l4tomo.vercel.app</section>
+                    <section>https://l4tomo.vercel.app/message/{existingUserName}</section>
                   </div>
                 </CardContent>
                 <CardFooter>

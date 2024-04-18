@@ -1,22 +1,37 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "@/utils/supabase";
 import { Avatar, Divider } from "@nextui-org/react";
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "../input";
 import { Textarea } from "../textarea";
-import { Card,  CardHeader, CardFooter } from "../card";
+import { Card, CardHeader, CardFooter } from "../card";
 import { Button } from "../button";
 import { Tabs, Tab } from "@nextui-org/react";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
 export default function MainUserParams() {
   const [url, setUrl] = useState(null);
+  const { toast } = useToast();
   const [titleDynamic, setTitleDynamic] = useState(null);
+  const [title, setTitle] = useState("");
   const { urlId } = useParams();
   const [userId, setUserId] = useState(null);
   const [message, setMessage] = useState("");
   const [picture, setPicture] = useState(null);
   const [youtubeUrl, setYoutubeUrl] = useState(""); // State untuk menyimpan URL video YouTube
+  const [userData, setUserData] = useState(null);
 
+  
   useEffect(() => {
     async function getUrl() {
       try {
@@ -34,6 +49,8 @@ export default function MainUserParams() {
           setTitleDynamic(data[0].title);
 
           setUserId(data[0].id);
+          console.log(userData);
+          console.log(userId);
         } else {
           console.log("URL tidak ditemukan");
         }
@@ -44,12 +61,12 @@ export default function MainUserParams() {
     getUrl();
   }, [urlId]);
 
-  
-
   const handleSave = async () => {
-    if (userId === urlId) {
-      alert("Jangan Halu Sayangku");
+    if (userData == urlId) {
+      alert("Halu");
+      return;
     }
+
     let imageName = null;
 
     if (picture) {
@@ -66,6 +83,7 @@ export default function MainUserParams() {
     }
 
     const newMessage = {
+      title: title,
       message: message,
       gambar: imageName,
       video: youtubeUrl,
@@ -79,8 +97,6 @@ export default function MainUserParams() {
       console.log("Data Berhasil Dikirim", data);
     }
   };
-
- 
 
   let tabs = [
     {
@@ -160,7 +176,7 @@ export default function MainUserParams() {
                   <Card className="w-[500px]">
                     <CardHeader className="">
                       <div className="flex items-center">
-                        <Avatar src="/violetP.jpg"/>
+                        <Avatar src="/violetP.jpg" />
                       </div>
                       <div>
                         <h1 className="">
@@ -178,7 +194,14 @@ export default function MainUserParams() {
                       <Divider />
                     </CardHeader>
                     <Divider />
-                    <CardFooter className="mb-4">
+                    <CardFooter className="mb-4 grid mt-6">
+                      <Input
+                        type="text"
+                        color="secondary"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Enter Your Title Violet"
+                      />
                       <div className="w-full">{item.content}</div>
                     </CardFooter>
                   </Card>
@@ -188,7 +211,13 @@ export default function MainUserParams() {
           </Tabs>
 
           <div className="flex justify-center items-center mt-4">
-            <Button className="max-w-lg w-full p-6" variant="borderwhite" onClick={handleSave}>Submit</Button>
+            <Button
+              className="max-w-lg w-full p-6"
+              variant="borderwhite"
+              onClick={handleSave}
+            >
+              Submit
+            </Button>
           </div>
         </div>
       </main>

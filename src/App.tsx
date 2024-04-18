@@ -11,6 +11,9 @@ import Verified from "./pages/Verified";
 import PublicMessage from "./pages/PublicMesssage";
 import Version from "./pages/Version";
 import MailId from "./pages/MailId";
+import AdminVersionInsert from "./pages/AdminVersionInsert";
+import Admin from "./pages/Admin";
+import AdminLayout from "./layouts/AdminLayouts";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -20,6 +23,7 @@ function App() {
     );
   };
 
+  const AdminWithLayout = withLayout(AdminLayout, Admin)
   const HomeWithLayout = withLayout(HomeLayout, Home);
   return (
     <>
@@ -38,6 +42,11 @@ function App() {
           <Route path=":urlId" element={<Url />} />
         </Route>
 
+        <Route path="admin" element={<AdminWithLayout />}>
+          <Route index element={<Admin />} />
+          <Route path="vin" element={<AdminVersionInsert />} />
+        </Route>
+
         <Route path="me" element={<HomeWithLayout />}>
           <Route index element={<Me />} />
           <Route path="mail">
@@ -45,6 +54,7 @@ function App() {
             <Route path=":mailId" element={<MailId />} />
           </Route>
         </Route>
+        <Route path="*" element={<h1>Not Found</h1>}></Route>
       </Routes>
     </>
   );

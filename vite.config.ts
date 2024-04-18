@@ -23,13 +23,19 @@ export default defineConfig({
         theme_color: "#ffffff",
         icons: [
           {
-            src: "icons/gambar.png",
+            src: "icons/LOGO.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable",
           },
           {
-            src: "icons/gambar.png",
+            src: "icons/LOGO.png",
+            sizes: "256x256",
+            type: "image/png",
+            purpose: "any maskable"
+          },
+          {
+            src: "icons/LOGO.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",

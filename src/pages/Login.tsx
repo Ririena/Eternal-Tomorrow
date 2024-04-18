@@ -72,7 +72,7 @@ function signUp() {
           variant: "success",
         });
 
-        navigate("/verified")
+        navigate("/verify")
       }
       console.log(data);
     } catch (error) {
