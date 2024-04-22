@@ -82,7 +82,7 @@ export default function MainMeCard({ className, ...props }: CardProps) {
   }
   return (
     <>
-      <section className="bg-slate-50 pt-12 font-montserrat">
+      <section className="bg-slate-50 pt-12 font-violet">
         <main className="">
           <div className="flex justify-center items-center">
             <div className=" max-w-md  lg:max-w-lg xl:max-w-lg">

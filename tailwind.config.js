@@ -28,6 +28,7 @@ module.exports = {
     extend: {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+        violet: ["Noto Sans JP", "sans-serif"]
       },
       colors: {
         border: "hsl(var(--border))",

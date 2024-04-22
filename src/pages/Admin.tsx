@@ -97,7 +97,7 @@ export default function Admin() {
 
   return (
     <>
-      <section className="font-montserrat">
+      <section className="font-violet">
         <h1 className="text-gray-600 text-2xl">Management System</h1>
         <div className="grid  grid-cols-1 md:grid-cols-2 lg:xl:grid-cols-4 gap-2  ">
           <Card className="text-gray-500 p-4 mt-5">

@@ -163,7 +163,7 @@ export default function MailCard() {
                           </CardHeader>
                           <Divider />
                           <CardBody>
-                            <div className="font-montserrat">
+                            <div className="font-violet">
                               <div className="flex justify-between">
                                 <h1 className="text-md mt-4">
                                   {formatDate(message.send_at)}

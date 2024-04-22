@@ -121,7 +121,7 @@ export default function SignUp() {
 
   return (
     <>
-      <div className="mx-auto container font-montserrat">
+      <div className="mx-auto container font-violet">
         <div className="flex justify-center mt-12">
           <form onSubmit={handleSubmit} className="w-full sm:max-w-md">
             <Card className="w-full sm:max-w-[500px]">

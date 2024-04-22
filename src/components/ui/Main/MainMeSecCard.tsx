@@ -54,7 +54,7 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
   }
   return (
     <>
-      <section className="pb-28 font-montserrat">
+      <section className="pb-28 font-violet">
         <div className="mt-4">
           <section className="flex justify-center items-center">
             <div className="max-w-md  lg:max-w-lg xl:max-w-lg w-full">

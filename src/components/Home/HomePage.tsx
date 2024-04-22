@@ -5,7 +5,7 @@ import { Card, CardHeader } from "../ui/card";
 import { AiOutlineMail } from "react-icons/ai";
 export default function HomePage() {
   return (
-    <main className="bg-violet-50 font-montserrat relative">
+    <main className="bg-violet-50 font-violet relative">
       <section className="container flex flex-col lg:flex-row justify-center items-center h-[calc(100vh-80px)]">
         <div className="text-center lg:mr-8 lg:text-left">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-4">

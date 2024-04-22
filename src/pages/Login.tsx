@@ -99,7 +99,7 @@ function signUp() {
   };
 
   return (
-    <div className="mx-auto container font-montserrat">
+    <div className="mx-auto container font-violet">
       <div className="flex justify-center mt-12">
         <form onSubmit={handleSubmit} className="w-full sm:max-w-md">
           <Card>

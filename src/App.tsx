@@ -14,6 +14,7 @@ import MailId from "./pages/MailId";
 import AdminVersionInsert from "./pages/AdminVersionInsert";
 import Admin from "./pages/Admin";
 import AdminLayout from "./layouts/AdminLayouts";
+import Testing from "./pages/Testing";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -23,7 +24,7 @@ function App() {
     );
   };
 
-  const AdminWithLayout = withLayout(AdminLayout, Admin)
+  const AdminWithLayout = withLayout(AdminLayout, Admin);
   const HomeWithLayout = withLayout(HomeLayout, Home);
   return (
     <>
@@ -31,7 +32,6 @@ function App() {
         <Route path="/" element={<HomeWithLayout />}>
           <Route index element={<Home />} />
           <Route path="public" element={<PublicMessage />} />
-
           <Route path="version" element={<Version />} />
         </Route>
         <Route path="verify" element={<Verified />} />

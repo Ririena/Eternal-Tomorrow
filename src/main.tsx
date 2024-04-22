@@ -9,7 +9,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider>
+        <div className="">
+
         <App />
+        </div>
       </ChakraProvider>
       <Toaster />
     </BrowserRouter>

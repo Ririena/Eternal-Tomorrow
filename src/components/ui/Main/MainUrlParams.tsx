@@ -167,7 +167,7 @@ export default function MainUserParams() {
 
   return (
     <>
-      <main className="mx-auto container font-montserrat mt-4">
+      <main className="mx-auto container font-violet mt-4">
         <div className="flex w-full flex-col">
           <Tabs items={tabs} className="mx-auto">
             {(item) => (
