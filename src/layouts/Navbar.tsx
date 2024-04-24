@@ -35,7 +35,7 @@ import {
   Divider,
   Image,
 } from "@nextui-org/react";
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar } from "@nextui-org/react";
 import { Button } from "@/components/ui/button";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
@@ -217,11 +217,10 @@ export default function Header() {
           <NavbarItem className="">
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Avatar className="transition hover:underline hover:ease-out duration-300 hover:scale-110 cursor-pointer">
-                  <AvatarImage
-                    src={userData ? userData.avatar : "/violetP.jpg"}
-                  />
-                </Avatar>
+                <Avatar
+                  src={userData ? userData.avatar : "/violetP.jpg"}
+                  className=" transition hover:underline hover:ease-out duration-300 hover:scale-110 cursor-pointer"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white border border-gray-200 rounded-md w-52 shadow-lg">
                 <DropdownMenuItem className="cursor-pointer">

@@ -1,9 +1,13 @@
 import React from "react";
-import { Divider, Image } from "@nextui-org/react";
+import { Divider, Image, Link } from "@nextui-org/react";
 import { Button } from "../ui/button";
 import { Card, CardHeader } from "../ui/card";
 import { AiOutlineMail } from "react-icons/ai";
+import { TypeAnimation } from "react-type-animation";
+import { useNavigate, useHref } from "react-router-dom";
 export default function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <main className="bg-violet-50 font-violet relative">
       <section className="container flex flex-col lg:flex-row justify-center items-center h-[calc(100vh-80px)]">
@@ -15,15 +19,14 @@ export default function HomePage() {
             Experience the joy of sending secure and heartfelt letters to your
             loved ones.
           </p>
-          <p className="text-lg lg:text-xl text-gray-700 mb-8">
-            Inspired by Violet Evergarden.
-          </p>
+          <p className="text-lg lg:text-xl text-gray-700 mb-8"></p>
           <Button className="text-lg px-8 py-3">Get Started</Button>
         </div>
         <div className="flex justify-center items-center mt-8 lg:mt-0">
           <Image
             className="object-contain max-w-[400px]] lg:max-w-[500px]"
             src="/amulet.gif"
+            alt="Eternal Tomorrow App"
           />
         </div>
       </section>
@@ -99,6 +102,63 @@ export default function HomePage() {
                 </p> */}
               </div>
             </div>
+            <div className="mt-[200px]"></div>
+            <section className="container">
+              <div className="flex justify-between">
+                <div className="mx-[] py-60">
+                  <h1 className="font-bold text-4xl">
+                    <TypeAnimation
+                      sequence={[
+                        "Inspired By",
+                        1000,
+                        "Inspired By Violet",
+                        1000,
+                        "Inspired By Violet Evergarden",
+                        1000,
+                        "Inspired By Violet Evergarden.",
+                        500,
+                      ]}
+                      wrapper="h1"
+                      repeat={Infinity}
+                    />
+                  </h1>
+                  <p className="text-lg text-gray-600 mt-4">
+                    Some Assets of our application is Copyrighted by Violet
+                    Evergarden
+                    <br />
+                    which is a Visual Novel That Written By{" "}
+                    <span className="cursor-pointer text-violet-600 hover:text-violet-400 font-semibold">
+                      <Link href="https://myanimelist.net/people/22715/Kana_Akatsuki">
+                        Kana Akatsuki{" "}
+                      </Link>
+                    </span>
+                    And Anime <br /> that Developed also Published By{" "}
+                    <span className="cursor-pointer hover:text-violet-400 text-violet-600 font-semibold">
+                      <Link href="https://www.kyotoanimation.co.jp/en/">
+                        Kyoto Animation
+                      </Link>
+                    </span>
+                  </p>
+                  <Link
+                    className="mt-4"
+                    href="https://violet-evergarden.jp/novelty/"
+                  >
+                    <Button size="lg" variant="bordered">
+                      License
+                    </Button>
+                  </Link>
+                </div>
+                <div>
+                  <Card>
+                    <Image
+                      src="/violet/Letter.jpg"
+                      className="object-contain"
+                      alt="Violet Evergarden Letter"
+                    />
+                  </Card>
+                </div>
+              </div>
+            </section>
           </div>
           <div className="flex justify-center">
             <div className="block md:lg:xl:hidden">

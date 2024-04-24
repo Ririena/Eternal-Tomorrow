@@ -8,10 +8,12 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { getUserByEmail, getUserFromTable } from "@/libs/UserLibs";
 import { supabase } from "@/utils/supabase";
+import { useToast } from "../use-toast";
 let yourName: string = "Zayshi";
 type CardProps = React.ComponentProps<typeof Card>;
 console.log(yourName);
 export default function MainMeCard({ className, ...props }: CardProps) {
+  const { toast } = useToast();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState(null);
@@ -60,6 +62,11 @@ export default function MainMeCard({ className, ...props }: CardProps) {
       }
 
       console.log("Title updated successfully!");
+      toast({
+        title: "Title Updated Succesfully✉️",
+        description: `Good Work Major ${userData ? userData.nama_user && userData.nama_user.toUpperCase() : "No Major"} `,
+        variant: "default"
+      });
 
       const { data, error: fetchError } = await supabase
         .from("user")
@@ -96,21 +103,30 @@ export default function MainMeCard({ className, ...props }: CardProps) {
 
                 <CardContent className="p-6">
                   <h1 className="text-violet-600 text-2xl font-bold mb-4 mx-auto text-center">
-                  {userData ? userData.title : ""}
+                    {userData ? userData.title : ""}
                   </h1>
                   <Input
                     value={title}
                     onChange={handleTitleChange}
                     type="text"
                     className="mb-4"
-                    placeholder={`Enter Your New Title Major ${yourName}`}
+                    placeholder={`Enter Your New Title Major ${
+                      userData
+                        ? userData.nama_user && userData.nama_user.toUpperCase()
+                        : "No Major"
+                    }`}
                   />
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button className="max-w-full w-full" onClick={handleAddData}>Add New Title</Button>
+                    <Button
+                      className="max-w-full w-full"
+                      onClick={handleAddData}
+                    >
+                      Add New Title
+                    </Button>
                   </motion.div>
                 </CardContent>
               </Card>

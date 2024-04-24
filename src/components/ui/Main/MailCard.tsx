@@ -124,7 +124,7 @@ export default function MailCard() {
           ) : receiverData ? (
             <>
               <div className="container mt-12">
-                <div className="flex justify-between -mx-[10px] md:mx-[86px] lg:-mx-[10px] xl:-mx-[40px] ">
+                <div className="flex justify-between mx-[30px]  md:mx-[86px] lg:-mx-[10px] xl:-mx-[40px] ">
                   <section>
                     <Button className="">
                       <AiOutlineMail size="1em" />
@@ -137,7 +137,7 @@ export default function MailCard() {
                 </div>
               </div>
               <div className="flex justify-center items-center">
-                <ul className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 m-4">
+                <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 m-4">
                   {currentItems.map((message) => (
                     <li key={message.id} className="flex justify-center">
                       <motion.section
@@ -168,7 +168,7 @@ export default function MailCard() {
                                 <h1 className="text-md mt-4">
                                   {formatDate(message.send_at)}
                                 </h1>
-                                <Badge className="mt-4" >-</Badge>
+                          
                               </div>
                             </div>
                           </CardBody>

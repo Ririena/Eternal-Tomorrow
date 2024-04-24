@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 const { nextui } = require("@nextui-org/react");
 
@@ -15,20 +15,23 @@ module.exports = {
   prefix: "",
   theme: {
     screens: {
-      'xs': '475px',
+      xs: "475px",
       ...defaultTheme.screens,
     },
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        'xl': '1480px'
-      }
+        xl: "1480px",
+      },
     },
     extend: {
+      backgroundImage: {
+        VioletCard1: "url('/public/violet/billingBg.jpg')",
+      },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
-        violet: ["Noto Sans JP", "sans-serif"]
+        violet: ["Noto Sans JP", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
