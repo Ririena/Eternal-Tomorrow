@@ -129,10 +129,10 @@ export default function HomePage() {
                     which is a Visual Novel That Written By{" "}
                     <span className="cursor-pointer text-violet-600 hover:text-violet-400 font-semibold">
                       <Link href="https://myanimelist.net/people/22715/Kana_Akatsuki">
-                        Kana Akatsuki{" "}
+                        -Kana Akatsuki-
                       </Link>
                     </span>
-                    And Anime <br /> that Developed also Published By{" "}
+                       And Anime <br /> that Developed also Published By{" "}
                     <span className="cursor-pointer hover:text-violet-400 text-violet-600 font-semibold">
                       <Link href="https://www.kyotoanimation.co.jp/en/">
                         Kyoto Animation

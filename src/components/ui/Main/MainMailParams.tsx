@@ -19,6 +19,8 @@ import { format } from "date-fns";
 export default function MainMailParams() {
   const [userData, setUserData] = useState(null);
   const [userEmail, setUserEmail] = useState("");
+  const [showImage, setShowImage] = useState(false);
+  const [showVideo, setShowVidedo] = useState(false);
   const [mailData, setMailData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDetail, setShowDetail] = useState(false);
@@ -66,7 +68,7 @@ export default function MainMailParams() {
           .getPublicUrl(data.gambar);
 
         setImage(res.data.publicUrl);
-
+        setShowImage(!showImage);
         if (data?.video) {
           setVideoUrl(data.video);
         }
@@ -95,10 +97,10 @@ export default function MainMailParams() {
       <div></div>
       {loading && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
-        <Spinner className="" size="lg">
-          <p className="text-black text-md">Loading</p>
-        </Spinner>
-      </div>
+          <Spinner className="" size="lg">
+            <p className="text-black text-md">Loading</p>
+          </Spinner>
+        </div>
       )}
       {!loading && !userEmail && (
         <div className="flex justify-center items-center h-screen bg-white bg-opacity-30">
@@ -159,7 +161,7 @@ export default function MainMailParams() {
               ) : (
                 <motion.div
                   key="mailDetail"
-                  className="mt-4 max-w-md lg:max-w-[600px] xl:max-w-[600px] w-full mx-auto relative"
+                  className="mt-4 max-w-md lg:max-w-[600px] xl:max-w-[600px] w-full mx-auto relative shadow-lg"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 50 }}
@@ -179,12 +181,9 @@ export default function MainMailParams() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <Card
-                      
-                      className="max-w-2xl mx-auto p-8 rounded-lg bg-opacity-75"
-                    >
+                    <Card className="max-w-2xl mx-auto p-8 rounded-lg shadow-lg">
                       <div className="flex justify-between items-center mb-4">
-                        <h1 className="text-3xl font-bold font-serif text-violet-900">
+                        <h1 className="text-2xl font-bold font-serif text-violet-900">
                           {mailData.title}
                         </h1>
                         <p className="text-sm text-gray-500">
@@ -218,22 +217,24 @@ export default function MainMailParams() {
                   <div className="mt-4">
                     {!loading && userEmail && mailData && showDetail && (
                       <>
-                        <Card >
-                          <div className="mx-auto">
-                            <Image
-                              src={image}
-                              alt="Sample Image"
-                              className="rounded-md size-96 object-contain"
-                            />
-                          </div>
-                          <CardBody>
-                            <Divider />
-                            <h3 className="text-lg font-semibold">
-                              Violet Pict
-                            </h3>
-                            <p>{mailData.message}</p>
-                          </CardBody>
-                        </Card>
+                        {!loading && userEmail && mailData && !showImage && (
+                          <Card>
+                            <div className="mx-auto">
+                              <Image
+                                src={image ? image : "/violet/Letter.jpg"}
+                                alt="Sample Image"
+                                className="rounded-md size-96 object-contain"
+                              />
+                            </div>
+                            <CardBody>
+                              <Divider />
+                              <h3 className="text-lg font-semibold">
+                                Violet Pict
+                              </h3>
+                              <p>{mailData.message}</p>
+                            </CardBody>
+                          </Card>
+                        )}
 
                         <div className="mt-4">
                           <Card>

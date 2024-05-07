@@ -151,11 +151,11 @@ export default function MailCard() {
                         className="max-w-lg w-full"
                         style={{ transformOrigin: "center" }}
                       >
-                        <Card className="border-2  border-primary-400">
+                        <Card className="border-2">
                           <CardHeader>
                             <a href={`/me/mail/${message.id}`}>
                               <Image
-                                src="/LOGO.png"
+                                src="/violet/Letter.jpg"
                                 className="object-contain"
                              width={300}
                               />

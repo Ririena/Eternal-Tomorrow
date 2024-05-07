@@ -98,6 +98,27 @@ function signUp() {
     }));
   };
 
+  async function handleGoogleLogin() {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+
+      if (error || !data) {
+        throw error || new Error("Failed to sign in with Google");
+      }
+
+    } catch (error) {
+      console.error("Google login error:", error);
+      toast({
+        title: "Login Gagal",
+        description: "Gagal login dengan Google",
+      variant: "destructive"
+      });
+    }
+  }
+
+
   return (
     <div className="mx-auto container font-violet">
       <div className="flex justify-center mt-12">
@@ -175,7 +196,7 @@ function signUp() {
                 >
                   <span className="flex items-center">
                     <Image src="/google.png" width={30} />
-                    <span className="ml-2">Continue with Google</span>
+                    <span className="ml-2" onClick={handleGoogleLogin}>Continue with Google</span>
                   </span>
                 </Button>
               </motion.div>

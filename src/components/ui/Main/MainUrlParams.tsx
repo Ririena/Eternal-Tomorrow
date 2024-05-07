@@ -17,9 +17,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
+import { AiFillFile } from "react-icons/ai";
 
 export default function MainUserParams() {
+
   const [url, setUrl] = useState(null);
   const { toast } = useToast();
   const [titleDynamic, setTitleDynamic] = useState(null);
@@ -31,7 +33,6 @@ export default function MainUserParams() {
   const [youtubeUrl, setYoutubeUrl] = useState(""); // State untuk menyimpan URL video YouTube
   const [userData, setUserData] = useState(null);
 
-  
   useEffect(() => {
     async function getUrl() {
       try {
@@ -95,6 +96,12 @@ export default function MainUserParams() {
       console.error(error.message);
     } else {
       console.log("Data Berhasil Dikirim", data);
+      toast({
+        title: "Berhasil",
+        description: "Surat Sudah Terkirim Kepada Penerima, Terima Kasih",
+        variant: "success"
+      })
+
     }
   };
 
@@ -113,12 +120,12 @@ export default function MainUserParams() {
             id="avatar"
           />
 
-          <Button variant="ninja" className="w-full mt-5">
+          <Button variant="bordered" className="w-full mt-5">
             <label
               htmlFor="avatar"
               className="cursor-pointer   px-4 py-2 rounded-md text-sm"
             >
-              Upload Avatar
+              Upload File
             </label>
           </Button>
         </>
@@ -187,7 +194,8 @@ export default function MainUserParams() {
                         <h1 className="mt-1">
                           Title:
                           <span>
-                            {titleDynamic && titleDynamic.toUpperCase()}
+                            {" "}
+                            {titleDynamic && titleDynamic.toUpperCase()}{" "}
                           </span>
                         </h1>
                       </div>
@@ -212,7 +220,7 @@ export default function MainUserParams() {
 
           <div className="flex justify-center items-center mt-4">
             <Button
-              className="max-w-lg w-full p-6"
+              className="max-w-[500px] w-full p-6"
               variant="borderwhite"
               onClick={handleSave}
             >

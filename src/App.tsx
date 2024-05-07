@@ -15,6 +15,7 @@ import AdminVersionInsert from "./pages/AdminVersionInsert";
 import Admin from "./pages/Admin";
 import AdminLayout from "./layouts/AdminLayouts";
 import Testing from "./pages/Testing";
+import Rank from "./pages/Rank";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -33,6 +34,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="public" element={<PublicMessage />} />
           <Route path="version" element={<Version />} />
+          <Route path="rank" element={<Rank/>}/>
         </Route>
         <Route path="verify" element={<Verified />} />
         <Route path="login" element={<Login />} />
