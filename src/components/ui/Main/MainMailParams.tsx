@@ -68,6 +68,7 @@ export default function MainMailParams() {
           .getPublicUrl(data.gambar);
 
         setImage(res.data.publicUrl);
+
         setShowImage(!showImage);
         if (data?.video) {
           setVideoUrl(data.video);
@@ -108,7 +109,7 @@ export default function MainMailParams() {
         </div>
       )}
       {!loading && userEmail && mailData && (
-        <main className="bg-white mt-8 relative pb-[400px]">
+        <main className="font-violet bg-white mt-8 relative pb-[400px]">
           <div className="flex justify-center items-center">
             <MainMailNotif />
             <AnimatePresence>
@@ -161,7 +162,7 @@ export default function MainMailParams() {
               ) : (
                 <motion.div
                   key="mailDetail"
-                  className="mt-4 max-w-md lg:max-w-[600px] xl:max-w-[600px] w-full mx-auto relative shadow-lg"
+                  className="mt-4 max-w-md lg:max-w-[600px] xl:max-w-[600px] w-full mx-auto relative "
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 50 }}
@@ -183,7 +184,7 @@ export default function MainMailParams() {
                   >
                     <Card className="max-w-2xl mx-auto p-8 rounded-lg shadow-lg">
                       <div className="flex justify-between items-center mb-4">
-                        <h1 className="text-2xl font-bold font-serif text-violet-900">
+                        <h1 className="text-2xl font-bold text-violet-900">
                           {mailData.title}
                         </h1>
                         <p className="text-sm text-gray-500">
@@ -193,7 +194,7 @@ export default function MainMailParams() {
                       <Divider className="border-violet-400 mb-4" />
                       <div className="py-4">
                         <p className="text-lg leading-relaxed text-gray-800">
-                          {mailData.message}
+                          {mailData.message ? mailData.message : mailData.content_gambar}
                         </p>
                       </div>
                       <Divider className="border-violet-400 mt-4" />
@@ -217,20 +218,23 @@ export default function MainMailParams() {
                   <div className="mt-4">
                     {!loading && userEmail && mailData && showDetail && (
                       <>
-                        {!loading && userEmail && mailData && !showImage && (
-                          <Card>
+                        {!loading && userEmail && mailData && (
+                          <Card className="">
                             <div className="mx-auto">
-                              <Image
-                                src={image ? image : "/violet/Letter.jpg"}
-                                alt="Sample Image"
-                                className="rounded-md size-96 object-contain"
-                              />
+                              <section>
+                                <Image
+                                  src={image ? image : "/violet/Letter.jpg"}
+                                  alt="Sample Image"
+                                  className="rounded-md size-auto object-contain"
+                                />
+                              </section>
                             </div>
                             <CardBody>
                               <Divider />
-                              <h3 className="text-lg font-semibold">
-                                Violet Pict
+                              <h3 className="text-lg font-semibold text-center">
+                                Sended Picture By Violet
                               </h3>
+                              
                               <p>{mailData.message}</p>
                             </CardBody>
                           </Card>

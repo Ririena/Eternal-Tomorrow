@@ -43,6 +43,7 @@ import { getUserByEmail, getUserFromTable } from "@/libs/UserLibs";
 import { supabase } from "../utils/supabase";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 export default function Header() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
@@ -51,6 +52,8 @@ export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [selectedAvatarFile, setSelectedAvatarFile] = useState(null);
+
+  const {toast} = useToast()
   function handleHome() {
     navigate("/");
   }
@@ -69,7 +72,13 @@ export default function Header() {
       if (error) {
         console.error(error as Error);
       }
+      toast({
+        title: "Your Logging Out",
+        description: "Log Out Has Been Succes",
+        variant: "destructive"
+      })
       navigate("/");
+      navigate(0)
     } catch (error) {
       console.error(error as Error);
     }
@@ -170,7 +179,7 @@ export default function Header() {
       </Modal>
 
       <Navbar
-        position="static"
+        position="sticky"
         className=" z-50 font-montserrat shadow-md bg-gradient-to-r from-violet-500 to-violet-700 text-slate-100"
       >
         <NavbarBrand>
@@ -198,6 +207,7 @@ export default function Header() {
           <NavbarItem>
             <Button
               variant="link"
+              onClick={() => navigate("/public")}
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
             >
               Public Message

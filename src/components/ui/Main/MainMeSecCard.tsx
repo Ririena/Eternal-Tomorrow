@@ -66,12 +66,12 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="mx-auto text-md text-center">
-                    <section>https://l4tomo.vercel.app/message/{existingUserName}</section>
+                    <section>https://eternal-tomorrow.vercel.app/message/{existingUserName}</section>
                   </div>
                 </CardContent>
                 <CardFooter>
                   <div className="mx-auto">
-                    <Snippet size="sm">{`https://l4tomo.vercel.app/message/${existingUserName}`}</Snippet>
+                    <Snippet size="sm">{`https://eternal-tomorrow.vercel.app/message/${existingUserName}`}</Snippet>
                   </div>
                 </CardFooter>
               </Card>
@@ -87,7 +87,7 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                     <div className="items-center flex justify-center">
                       <a
                         href={`https://wa.me/?text=${encodeURIComponent(
-                          `https://l4tomo.vercel.app/message/${existingUserName}`
+                          `https://eternal-tomorrow.vercel.app/message/${existingUserName}`
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"

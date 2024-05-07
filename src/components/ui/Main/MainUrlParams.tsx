@@ -21,7 +21,6 @@ import {
 import { AiFillFile } from "react-icons/ai";
 
 export default function MainUserParams() {
-
   const [url, setUrl] = useState(null);
   const { toast } = useToast();
   const [titleDynamic, setTitleDynamic] = useState(null);
@@ -32,7 +31,7 @@ export default function MainUserParams() {
   const [picture, setPicture] = useState(null);
   const [youtubeUrl, setYoutubeUrl] = useState(""); // State untuk menyimpan URL video YouTube
   const [userData, setUserData] = useState(null);
-
+  const [contentImage, setContentImage] = useState("");
   useEffect(() => {
     async function getUrl() {
       try {
@@ -89,6 +88,7 @@ export default function MainUserParams() {
       gambar: imageName,
       video: youtubeUrl,
       ReceiverMaillerURL: userId,
+      content_gambar: contentImage,
     };
 
     const { data, error } = await supabase.from("message").insert([newMessage]);
@@ -99,9 +99,8 @@ export default function MainUserParams() {
       toast({
         title: "Berhasil",
         description: "Surat Sudah Terkirim Kepada Penerima, Terima Kasih",
-        variant: "success"
-      })
-
+        variant: "success",
+      });
     }
   };
 
@@ -118,6 +117,13 @@ export default function MainUserParams() {
             color="secondary"
             className="hidden"
             id="avatar"
+          />
+
+          <Input
+            className="mt-2"
+            placeholder="Enter Description For Image"
+            value={contentImage}
+            onChange={(e) => setContentImage(e.target.value)}
           />
 
           <Button variant="bordered" className="w-full mt-5">

@@ -94,26 +94,27 @@ function signUp() {
     }));
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "", // Reset error when input changes
+      [name]: "", 
     }));
   };
 
   async function handleGoogleLogin() {
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
       });
 
-      if (error || !data) {
-        throw error || new Error("Failed to sign in with Google");
-      }
+  
 
+     
+
+     
     } catch (error) {
       console.error("Google login error:", error);
       toast({
         title: "Login Gagal",
         description: "Gagal login dengan Google",
-      variant: "destructive"
+        duration: 5000,
       });
     }
   }

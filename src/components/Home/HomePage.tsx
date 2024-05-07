@@ -1,13 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Divider, Image, Link } from "@nextui-org/react";
 import { Button } from "../ui/button";
 import { Card, CardHeader } from "../ui/card";
 import { AiOutlineMail } from "react-icons/ai";
 import { TypeAnimation } from "react-type-animation";
 import { useNavigate, useHref } from "react-router-dom";
+import { supabase } from "../../utils/supabase.js";
 export default function HomePage() {
   const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState(null);
+  const [existingUserName, setExistingUserName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [verify, setVerify] = useState(null);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
 
+    
+        if (error) {
+          console.error(error.message);
+        } else {
+          setUserEmail(user.email);
+
+          const { data, error } = await supabase
+            .from("user")
+            .select("nama_user")
+            .eq("email", user.email)
+            .single();
+
+            if(!data.nama_user) {
+              navigate('/verify')
+            } else {
+              navigate('/me')
+            }
+
+          if (error) {
+            console.error(error.message);
+          } else {
+            if (data) {
+              setExistingUserName(data.nama_user);
+            }
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUserData();
+  }, []);
   return (
     <main className="bg-violet-50 font-violet relative">
       <section className="container flex flex-col lg:flex-row justify-center items-center h-[calc(100vh-80px)]">
@@ -132,7 +178,7 @@ export default function HomePage() {
                         -Kana Akatsuki-
                       </Link>
                     </span>
-                       And Anime <br /> that Developed also Published By{" "}
+                    And Anime <br /> that Developed also Published By{" "}
                     <span className="cursor-pointer hover:text-violet-400 text-violet-600 font-semibold">
                       <Link href="https://www.kyotoanimation.co.jp/en/">
                         Kyoto Animation
