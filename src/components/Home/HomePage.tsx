@@ -12,7 +12,7 @@ export default function HomePage() {
     <main className="bg-violet-50 font-violet relative">
       <section className="container flex flex-col lg:flex-row justify-center items-center h-[calc(100vh-80px)]">
         <div className="text-center lg:mr-8 lg:text-left">
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Send Heartfelt Letters with Letter4Tomorrow
           </h1>
           <p className="text-lg lg:text-xl text-gray-700 mb-4">
