@@ -71,7 +71,7 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                 </CardContent>
                 <CardFooter>
                   <div className="mx-auto">
-                    <Snippet size="sm">{`https://eternal-tomorrow.vercel.app/message/${existingUserName}`}</Snippet>
+                    <Snippet size="sm">{`eternal-tomorrow.vercel.app/message/${existingUserName}`}</Snippet>
                   </div>
                 </CardFooter>
               </Card>
