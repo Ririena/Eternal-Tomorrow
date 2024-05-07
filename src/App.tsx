@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import AdminLayout from "./layouts/AdminLayouts";
 import Testing from "./pages/Testing";
 import Rank from "./pages/Rank";
+import NotFound from "./pages/NotFound";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -34,7 +35,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="public" element={<PublicMessage />} />
           <Route path="version" element={<Version />} />
-          <Route path="rank" element={<Rank/>}/>
+          <Route path="rank" element={<Rank />} />
         </Route>
         <Route path="verify" element={<Verified />} />
         <Route path="login" element={<Login />} />
@@ -56,7 +57,7 @@ function App() {
             <Route path=":mailId" element={<MailId />} />
           </Route>
         </Route>
-        <Route path="*" element={<h1>Not Found</h1>}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </>
   );
