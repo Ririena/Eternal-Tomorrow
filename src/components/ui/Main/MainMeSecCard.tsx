@@ -69,11 +69,7 @@ export default function MainMeSecCard({ className, ...props }: CardProps) {
                     <section>https://eternal-tomorrow.vercel.app/message/{existingUserName}</section>
                   </div>
                 </CardContent>
-                <CardFooter>
-                  <div className="">
-                    <Snippet size="sm">{`eternal-tomorrow.vercel.app/message/${existingUserName}`}</Snippet>
-                  </div>
-                </CardFooter>
+             
               </Card>
 
               <div className="mt-4">
