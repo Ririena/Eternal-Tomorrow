@@ -17,6 +17,7 @@ import AdminLayout from "./layouts/AdminLayouts";
 import Testing from "./pages/Testing";
 import Rank from "./pages/Rank";
 import NotFound from "./pages/NotFound";
+import Evergarden from "./pages/Evergarden";
 function App() {
   const withLayout = (LayoutComponent: any, ChildComponent: any) => {
     return (props: any) => (
@@ -36,6 +37,7 @@ function App() {
           <Route path="public" element={<PublicMessage />} />
           <Route path="version" element={<Version />} />
           <Route path="rank" element={<Rank />} />
+          <Route path="evergarden" element={<Evergarden/>}/>
         </Route>
         <Route path="verify" element={<Verified />} />
         <Route path="login" element={<Login />} />

@@ -24,7 +24,7 @@ const NotFound = () => {
             </h1>
           </CardContent>
           <Divider />
-          <CardFooter>
+          <CardFooter>  
             <Button onClick={() => navigate("/")}>Back To Hom</Button>
           </CardFooter>
         </Card>

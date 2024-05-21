@@ -17,6 +17,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Badge } from "../badge";
+import { useNavigate } from "react-router-dom";
 
 interface PaginationItemProps {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ export default function MailCard() {
   const [ascendingOrder, setAscendingOrder] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
-
+  const navigate = useNavigate()
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -157,7 +158,7 @@ export default function MailCard() {
                               <Image
                                 src="/violet/Letter.jpg"
                                 className="object-contain"
-                             width={300}
+                                width={300}
                               />
                             </a>
                           </CardHeader>
@@ -168,7 +169,6 @@ export default function MailCard() {
                                 <h1 className="text-md mt-4">
                                   {formatDate(message.send_at)}
                                 </h1>
-                          
                               </div>
                             </div>
                           </CardBody>
@@ -213,7 +213,15 @@ export default function MailCard() {
               </div>
             </>
           ) : (
-            <div>Data not found</div>
+            <div className="flex justify-center items-center h-[750px] font-violet">
+              <section className="grid grid-cols-1">
+                <div className="size-72">
+                  <Image src="/icons/512L4T.png" />
+                </div>
+                <h1 className="text-2xl text-center">401 Unauthorized</h1>
+                <Button onClick={() => navigate("/login")} className="mt-4">Click Me For Sessions</Button>
+              </section>
+            </div>
           )}
         </section>
       </main>

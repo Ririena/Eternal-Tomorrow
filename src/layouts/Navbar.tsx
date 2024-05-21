@@ -88,6 +88,10 @@ export default function Header() {
     navigate("/login");
   }
 
+  function handleBoard() {
+    navigate("/evergarden")
+  }
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -206,14 +210,23 @@ export default function Header() {
           </NavbarItem>
           <NavbarItem>
             <Button
+              className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
+              variant="link"
+              onClick={handleBoard}
+            >
+              Violet Board
+            </Button>
+          </NavbarItem> 
+          <NavbarItem>
+            <Button
               variant="link"
               onClick={() => navigate("/public")}
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
             >
-              Public Message
+              Request Message
             </Button>
           </NavbarItem>
-          <NavbarItem>
+          {/* <NavbarItem>
             <Button
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"
               onClick={handleVersion}
@@ -221,7 +234,8 @@ export default function Header() {
             >
               Version List
             </Button>
-          </NavbarItem>
+          </NavbarItem> */}
+        
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="">

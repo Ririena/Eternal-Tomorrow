@@ -35,7 +35,7 @@ export default function HomePage() {
             if(!data.nama_user) {
               navigate('/verify')
             } else {
-              navigate('/me')
+              return;
             }
 
           if (error) {
