@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { supabase } from "../../../utils/supabase.ts";
 import { getUserByEmail, getUserFromTable } from "../../../libs/UserLibs.js";
 import { motion, AnimatePresence } from "framer-motion";
+import { Spacer } from "@nextui-org/react";
 import {
   Card,
   CardBody,
@@ -176,84 +177,74 @@ export default function MainMailParams() {
                     whileTap={{ scale: 0.9 }}
                     onClick={handleShowDetail}
                   ></motion.div>
-                  <motion.div
-                    className="shadow-md overflow-hidden relative"
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <Card className="max-w-2xl mx-auto p-8 rounded-lg shadow-lg">
-                      <div className="flex justify-between items-center mb-4">
-                        <h1 className="text-2xl font-bold text-violet-900">
-                          {mailData.title}
+                  {mailData.message && (
+                    <Card className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8 border border-gray-300">
+                      <div className="flex flex-col items-center">
+                        <h1 className="text-4xl font-serif text-gray-800 mb-4">
+                          Dear {userData.nama_user},
                         </h1>
-                        <p className="text-sm text-gray-500">
-                          From: Violet Evergarden
+                        <Divider />
+                        <p className="text-gray-700 text-lg leading-relaxed mb-6 mt-6">
+                          {mailData.message}
                         </p>
-                      </div>
-                      <Divider className="border-violet-400 mb-4" />
-                      <div className="py-4">
-                        <p className="text-lg leading-relaxed text-gray-800">
-                          {mailData.message ? mailData.message : mailData.content_gambar}
+                        <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                          {mailData.sub_c}
                         </p>
-                      </div>
-                      <Divider className="border-violet-400 mt-4" />
-                      <div className="flex justify-between items-center mt-4">
-                        <div>
+                        <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                          {mailData.fare_c}
+                        </p>
+                        <Spacer y={1} />
+                        <Divider />
+                        <div className="mt-2">
                           <p className="text-sm text-gray-600">
                             Violet Evergarden
                           </p>
-                          <p className="text-xs text-gray-400 ">
+                          <p className="text-xs text-gray-400">
                             {formatDate(mailData.send_at)}
                           </p>
                         </div>
-                        <Image
-                          src="/violetP.jpg"
-                          alt="Stamp"
-                          className="size-12"
-                        />
                       </div>
                     </Card>
-                  </motion.div>
-                  <div className="mt-4">
-                    {!loading && userEmail && mailData && showDetail && (
-                      <>
-                        {!loading && userEmail && mailData && (
-                          <Card className="">
-                            <div className="mx-auto">
-                              <section>
-                                <Image
-                                  src={image ? image : "/violet/Letter.jpg"}
-                                  alt="Sample Image"
-                                  className="rounded-md size-auto object-contain"
-                                />
-                              </section>
-                            </div>
-                            <CardBody>
-                              <Divider />
-                              <h3 className="text-lg font-semibold text-center">
-                                Sended Picture By Violet
-                              </h3>
-                              
-                              <p>{mailData.message}</p>
-                            </CardBody>
-                          </Card>
-                        )}
+                  )}
 
-                        <div className="mt-4">
-                          <Card>
-                            {videoUrl && typeof videoUrl === "string" && (
-                              <ReactPlayer
-                                url={videoUrl}
-                                controls={true}
-                                className=""
-                              />
-                            )}
-                          </Card>
+                  {mailData.gambar && (
+                    <Card className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8 border border-gray-300">
+                      <div className="flex flex-col items-center">
+                        <h1 className="text-4xl font-serif text-gray-800 mb-4">
+                          Dear {userData.nama_user},
+                        </h1>
+                        <Divider />
+                        <Image src={image} />
+                        <Divider />
+                        <p className="text-gray-700 text-lg leading-relaxed mb-6 mt-6">
+                          {mailData.title}
+                        </p>
+                      </div>
+                    </Card>
+                  )}
+
+                  {mailData.video && videoUrl && typeof videoUrl === "string" && (
+                    <>
+                      <Card className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8 border border-gray-300">
+                        <div className="flex flex-col items-center">
+                          <h1 className="text-4xl font-serif text-gray-800 mb-4">
+                            Dear {userData.nama_user},
+                          </h1>
+                          <Divider />
+                          <ReactPlayer
+                            url={videoUrl}
+                            controls={true}
+                            className="rounded-lg shadow-md overflow-hidden"
+                            width="100%"
+                          />
+                          <Divider />
+                          <p className="text-gray-700 text-lg leading-relaxed mb-6 mt-6">
+                            {mailData.title}
+                          </p>
                         </div>
-                      </>
-                    )}
-                  </div>
+                      </Card>
+                    </>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>

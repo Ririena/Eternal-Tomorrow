@@ -217,7 +217,7 @@ export default function Header() {
               Violet Board
             </Button>
           </NavbarItem> 
-          <NavbarItem>
+          {/* <NavbarItem>
             <Button
               variant="link"
               onClick={() => navigate("/public")}
@@ -225,7 +225,7 @@ export default function Header() {
             >
               Request Message
             </Button>
-          </NavbarItem>
+          </NavbarItem> */}
           {/* <NavbarItem>
             <Button
               className="text-violet-300 hover:text-violet-100 transition hover:underline hover:ease-out duration-300 hover:scale-110"

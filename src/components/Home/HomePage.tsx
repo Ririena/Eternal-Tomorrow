@@ -58,7 +58,7 @@ export default function HomePage() {
     <main className="bg-violet-50 font-violet relative">
       <section className="container flex flex-col lg:flex-row justify-center items-center h-[calc(100vh-80px)]">
         <div className="text-center lg:mr-8 lg:text-left">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="sm:text-2xl md:text-3xl text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Send Heartfelt Letters with Letter4Tomorrow
           </h1>
           <p className="text-lg lg:text-xl text-gray-700 mb-4">
@@ -205,27 +205,11 @@ export default function HomePage() {
                 </div>
               </div>
             </section>
+            <div className="mb-4"></div>
+            <Divider />
+            <div className="mb-96"></div>
           </div>
-          <div className="flex justify-center">
-            <div className="block md:lg:xl:hidden">
-              <Card className="w-[400px]  mt-52 mb-96">
-                <div>
-                  <Image src="/LOGO.png" className="object-contain" />
-                </div>
-                <CardHeader>
-                  <h1 className="font-bold text-lg">
-                    See a Eternal Tomorrow Applications
-                  </h1>
-                  <p className="text-sm text-gray-600 mt-4">
-                    With Our Application, you are able to expressing your <br />
-                    emotion or expressing your heartfelt message to <br />
-                    everyone also receiving a message from ur friend <br />
-                    that secured encrypted
-                  </p>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
+          
         </section>
       </main>
     </main>

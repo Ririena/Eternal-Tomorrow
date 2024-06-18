@@ -5,6 +5,7 @@ import { Avatar, Divider } from "@nextui-org/react";
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "../input";
 import { Textarea } from "../textarea";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardFooter } from "../card";
 import { Button } from "../button";
 import { Tabs, Tab } from "@nextui-org/react";
@@ -28,10 +29,19 @@ export default function MainUserParams() {
   const { urlId } = useParams();
   const [userId, setUserId] = useState(null);
   const [message, setMessage] = useState("");
+  const [messageContent, setMessageContent] = useState("")
+  const [subContent, setSubContent] = useState("")
+  const [farewelMessage, setFarewelMessage] = useState("")
   const [picture, setPicture] = useState(null);
   const [youtubeUrl, setYoutubeUrl] = useState(""); // State untuk menyimpan URL video YouTube
   const [userData, setUserData] = useState(null);
   const [contentImage, setContentImage] = useState("");
+  const [showDetail, setShowDetail] = useState(false);
+  const handleShowDetail = () => {
+    setShowDetail(!showDetail);
+  };
+
+
   useEffect(() => {
     async function getUrl() {
       try {
@@ -85,6 +95,8 @@ export default function MainUserParams() {
     const newMessage = {
       title: title,
       message: message,
+      sub_c: subContent,
+      fare_c: farewelMessage,
       gambar: imageName,
       video: youtubeUrl,
       ReceiverMaillerURL: userId,
@@ -141,13 +153,30 @@ export default function MainUserParams() {
       id: "Text",
       label: "Text",
       content: (
+        <>
         <Textarea
           color="secondary"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Enter Your Letter Violet✉️"
+          placeholder="Enter Your Message Violet"
           className="w-full mt-4"
         />
+        <Textarea
+          color="secondary"
+          value={subContent}
+          onChange={(e) => setSubContent(e.target.value)}
+          placeholder="Enter Your Sub Message Violet"
+          className="w-full mt-4"
+        />
+        <Textarea
+          color="secondary"
+          value={farewelMessage}
+          onChange={(e) => setFarewelMessage(e.target.value)}
+          placeholder="Enter Your Farewel Message"
+          className="w-full mt-4"
+        />
+       
+        </>
       ),
     },
     {
@@ -234,6 +263,10 @@ export default function MainUserParams() {
             </Button>
           </div>
         </div>
+        {/* <div className="mt-[50px] mr-[45px] border-solid border-2 border-[#b39159]">
+<div className="m-2 border-solid border-1 border-[#b39159]"></div>
+        </div> */}
+        
       </main>
     </>
   );

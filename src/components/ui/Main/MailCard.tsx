@@ -19,9 +19,6 @@ import {
 import { Badge } from "../badge";
 import { useNavigate } from "react-router-dom";
 
-interface PaginationItemProps {
-  children: React.ReactNode;
-}
 export default function MailCard() {
   const [userId, setUserId] = useState(null);
   const [receiverData, setReceiverData] = useState(null);
@@ -30,14 +27,12 @@ export default function MailCard() {
   const [ascendingOrder, setAscendingOrder] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchUser() {
       try {
-        const {
-          data: { user },
-          error,
-        } = await supabase.auth.getUser();
+        const { data: { user }, error } = await supabase.auth.getUser();
 
         if (error) {
           throw error;
@@ -111,6 +106,16 @@ export default function MailCard() {
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  // Determine the range of pages to display
+  const maxPagesToShow = 4;
+  let startPage = Math.max(currentPage - Math.floor(maxPagesToShow / 2), 1);
+  let endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+
+  // Adjust startPage and endPage to always show maxPagesToShow pages
+  if (endPage - startPage < maxPagesToShow - 1) {
+    startPage = Math.max(endPage - maxPagesToShow + 1, 1);
+  }
 
   return (
     <>
@@ -188,20 +193,25 @@ export default function MailCard() {
                     Previous
                   </PaginationPrevious>
                   <PaginationContent className="flex space-x-2">
-                    {Array.from({ length: totalPages }).map((_, index) => (
-                      <PaginationItem key={index}>
-                        <PaginationLink
-                          onClick={() => handlePageClick(index + 1)}
-                          className={`px-4 py-2 rounded-lg cursor-pointer ${
-                            currentPage === index + 1
-                              ? "bg-primary text-white"
-                              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                          }`}
-                        >
-                          {index + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
+                    {Array.from({ length: totalPages }).map((_, index) => {
+                      if (index + 1 >= startPage && index + 1 <= endPage) {
+                        return (
+                          <PaginationItem key={index}>
+                            <PaginationLink
+                              onClick={() => handlePageClick(index + 1)}
+                              className={`px-3 py-1 rounded-lg cursor-pointer ${
+                                currentPage === index + 1
+                                  ? "bg-primary text-white"
+                                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                              }`}
+                            >
+                              {index + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      }
+                      return null;
+                    })}
                   </PaginationContent>
                   <PaginationNext
                     onClick={handleNextPage}
@@ -219,7 +229,9 @@ export default function MailCard() {
                   <Image src="/icons/512L4T.png" />
                 </div>
                 <h1 className="text-2xl text-center">401 Unauthorized</h1>
-                <Button onClick={() => navigate("/login")} className="mt-4">Click Me For Sessions</Button>
+                <Button onClick={() => navigate("/login")} className="mt-4">
+                  Click Me For Sessions
+                </Button>
               </section>
             </div>
           )}
